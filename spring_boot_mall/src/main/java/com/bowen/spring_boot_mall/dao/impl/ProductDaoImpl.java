@@ -66,4 +66,37 @@ public class ProductDaoImpl implements ProductDao {
 
         return productId;
     }
+
+    @Override
+    public void updateProduct(Integer productID, ProductRequest productRequest) {
+      String sql="UPDATE product SET product_name=:product_name,category=:category,image_url=:image_url," +
+              "price=:price,stock=:stock,description=:description,last_modified_date=:last_modified_date" +
+              " WHERE product_id= :producd_ID";
+
+    Map<String,Object> map=new HashMap<>();
+    map.put("product_name",productRequest.getProductName());
+        map.put("category",productRequest.getCategory().name());
+        map.put("image_url",productRequest.getImageUrl());
+        map.put("price",productRequest.getPrice());
+        map.put("stock",productRequest.getStock());
+        map.put("description",productRequest.getDescription());
+        map.put("last_modified_date",new Date());
+
+        //收進來的id參數
+        map.put("producd_ID",productID);
+
+      namedParameterJdbcTemplate.update(sql,map);
+
+
+    }
+
+
+    @Override
+    public void deleteProductuID(Integer productID) {
+        String sql="DELETE FROM product Where product_id=:productID";
+        Map<String,Object> map=new HashMap<>();
+        map.put("productID",productID);
+        namedParameterJdbcTemplate.update(sql,map);
+
+    }
 }

@@ -44,8 +44,27 @@ public ResponseEntity<Product> getProduct(@PathVariable Integer productId){
     return  ResponseEntity.status(HttpStatus.CREATED).body(product);
 }
 
+    @PutMapping("/products/{productID}")
+  public  ResponseEntity<Product> updateProduct(@PathVariable Integer productID,
+                                                @RequestBody @Valid ProductRequest productRequest){
+    //檢查商品是否存在
+    if(productService.getProductById(productID)==null){
+        return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
+    }else{
+        //修改商品數據
+        productService.updateProduct(productID,productRequest);
+        Product updatedProduct=productService.getProductById(productID);
+        return  ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
+    }
+  }
 
+  @DeleteMapping("/products/{productID}")
+  public ResponseEntity<?> deleteProduct(@PathVariable Integer productID){
+    productService.deleteProductuID(productID);
+    return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+  }
 
 
 
