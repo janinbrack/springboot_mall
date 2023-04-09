@@ -67,6 +67,8 @@ public class ProductDaoImpl implements ProductDao {
         return productId;
     }
 
+
+
     @Override
     public void updateProduct(Integer productID, ProductRequest productRequest) {
       String sql="UPDATE product SET product_name=:product_name,category=:category,image_url=:image_url," +
@@ -99,4 +101,27 @@ public class ProductDaoImpl implements ProductDao {
         namedParameterJdbcTemplate.update(sql,map);
 
     }
+
+
+
+
+    /**
+     * 查詢申品列表 _ 撈取所有商品
+     * 2023/04/09
+     */
+    @Override
+    public List<Product> getProducts() {
+//        String sql="SELECT product_id,product_name,category,image_url,price,stock,description,created_date,last_modified_date" +
+//                "FROM product";
+
+        String sql="SELECT *" +
+                "FROM product";
+
+        List<Product> productList =
+                namedParameterJdbcTemplate.query(sql,new HashMap(),new ProductRowMapper());
+        return productList;
+    }
+
+
+
 }

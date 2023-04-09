@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.beans.PropertyDescriptor;
+import java.util.List;
 
 @RestController
 public class ProductController {
@@ -64,6 +65,21 @@ public ResponseEntity<Product> getProduct(@PathVariable Integer productId){
     productService.deleteProductuID(productID);
     return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
+  }
+
+
+
+
+
+  /**
+   * 查詢申品列表 _ 撈取所有商品
+   * 2023/04/08
+   */
+  @GetMapping("/products")
+  public ResponseEntity<List<Product>> getProducts(){
+    List<Product> productList =
+            productService.getProducts();
+    return ResponseEntity.status(HttpStatus.OK).body(productList);
   }
 
 
