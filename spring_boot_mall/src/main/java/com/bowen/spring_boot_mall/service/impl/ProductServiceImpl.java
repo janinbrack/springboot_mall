@@ -1,5 +1,6 @@
 package com.bowen.spring_boot_mall.service.impl;
 
+import com.bowen.spring_boot_mall.constant.ProductCategory;
 import com.bowen.spring_boot_mall.dao.ProductDao;
 import com.bowen.spring_boot_mall.dto.ProductRequest;
 import com.bowen.spring_boot_mall.model.Product;
@@ -40,5 +41,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProducts() {
         return productDao.getProducts();
+    }
+
+    @Override
+    public List<Product> getProducts(ProductCategory category,String search) {
+        return productDao.getProducts(category,search);
     }
 }

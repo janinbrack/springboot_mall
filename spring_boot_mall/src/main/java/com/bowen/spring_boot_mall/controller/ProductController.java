@@ -1,6 +1,7 @@
 package com.bowen.spring_boot_mall.controller;
 
 
+import com.bowen.spring_boot_mall.constant.ProductCategory;
 import com.bowen.spring_boot_mall.dto.ProductRequest;
 import com.bowen.spring_boot_mall.model.Product;
 import com.bowen.spring_boot_mall.service.ProductService;
@@ -83,5 +84,18 @@ public ResponseEntity<Product> getProduct(@PathVariable Integer productId){
   }
 
 
+    /**
+     * 查詢商品列表 _ 根據商品類型作為條件
+     * 查詢商品列表 _ 搜尋功能
+     * 2023/04/08
+     */
+    @GetMapping("/products/category")
+    public ResponseEntity<List<Product>> getProducts(
+            @RequestParam(required = false)  ProductCategory category,
+            @RequestParam(required = false) String search){
+            List<Product> productList= productService.getProducts(category,search);
+
+             return ResponseEntity.status(HttpStatus.OK).body(productList);
+    }
 
 }
