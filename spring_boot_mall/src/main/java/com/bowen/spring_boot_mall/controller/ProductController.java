@@ -2,6 +2,7 @@ package com.bowen.spring_boot_mall.controller;
 
 
 import com.bowen.spring_boot_mall.constant.ProductCategory;
+import com.bowen.spring_boot_mall.dto.ProductQueryParams;
 import com.bowen.spring_boot_mall.dto.ProductRequest;
 import com.bowen.spring_boot_mall.model.Product;
 import com.bowen.spring_boot_mall.service.ProductService;
@@ -93,7 +94,13 @@ public ResponseEntity<Product> getProduct(@PathVariable Integer productId){
     public ResponseEntity<List<Product>> getProducts(
             @RequestParam(required = false)  ProductCategory category,
             @RequestParam(required = false) String search){
-            List<Product> productList= productService.getProducts(category,search);
+
+        ProductQueryParams productQueryParams=
+            new ProductQueryParams();
+        productQueryParams.setProductCategory(category);
+        productQueryParams.setSearch(search);
+
+            List<Product> productList= productService.getProducts(productQueryParams);
 
              return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
