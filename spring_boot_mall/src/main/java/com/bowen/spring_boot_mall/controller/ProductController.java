@@ -90,7 +90,7 @@ public ResponseEntity<Product> getProduct(@PathVariable Integer productId){
     /**
      * 查詢商品列表 _ 根據商品類型作為條件
      * 查詢商品列表 _ 搜尋功能
-     * 2023/04/08
+     * 2023/04/16
      */
     @GetMapping("/products/category")
     public ResponseEntity<List<Product>> getProducts(

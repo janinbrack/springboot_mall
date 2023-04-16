@@ -127,15 +127,14 @@ public class ProductDaoImpl implements ProductDao {
     /**
      * 查詢商品列表 _ 根據商品類型作為條件
      * 查詢商品列表 _ 搜尋功能
-     * 2023/04/11
+     * 2023/04/16
      */
-
-
     @Override
     public List<Product> getProducts(ProductQueryParams productQueryParams) {
         String sql="SELECT * FROM product where 1=1";
         Map<String,Object> map=new HashMap<>();
 
+        //篩選
         if (productQueryParams.getProductCategory() != null){
             sql+=" AND category=:category";
             map.put("category",productQueryParams.getProductCategory().name());
@@ -146,8 +145,10 @@ public class ProductDaoImpl implements ProductDao {
             map.put("search","%"+productQueryParams.getSearch()+"%");
         }
 
+        //排序
         sql+=" ORDER BY "+productQueryParams.getOrderBy()+" "+productQueryParams.getSort();
 
+        //分頁
         sql+= " LIMIT :limit OFFSET :offset";
         map.put("limit",productQueryParams.getLimit());
         map.put("offset",productQueryParams.getOffset());
