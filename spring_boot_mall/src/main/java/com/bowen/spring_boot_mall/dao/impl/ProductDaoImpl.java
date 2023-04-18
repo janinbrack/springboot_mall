@@ -158,4 +158,30 @@ public class ProductDaoImpl implements ProductDao {
                 namedParameterJdbcTemplate.query(sql,map,new ProductRowMapper());
         return productList;
     }
+
+
+    /**
+     * 返回值是根據當前篩選條件所查詢出來的資料總比數
+     * 2023/04/18
+     */
+    @Override
+    public Integer countProduct(ProductQueryParams productQueryParams) {
+        String sql = "SELECT count(*) FROM product where 1=1";
+        Map<String,Object> map=new HashMap<>();
+        //篩選
+        if (productQueryParams.getProductCategory() != null){
+            sql+=" AND category=:category";
+            map.put("category",productQueryParams.getProductCategory().name());
+        }
+
+        if (productQueryParams.getSearch()!=null){
+            sql+=" AND product_name LIKE :search";
+            map.put("search","%"+productQueryParams.getSearch()+"%");
+        }
+
+        //Integer.class參數 : 用意是將傳回值轉成 Integer 類型
+        Integer count = namedParameterJdbcTemplate.queryForObject(sql,map,Integer.class);
+
+        return count;
+    }
 }

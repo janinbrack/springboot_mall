@@ -19,4 +19,6 @@ public interface ProductDao {
     List<Product> getProducts();
 
     List<Product> getProducts(ProductQueryParams productQueryParams);
+
+    Integer countProduct(ProductQueryParams productQueryParams);
 }
