@@ -91,6 +91,7 @@ public ResponseEntity<Product> getProduct(@PathVariable Integer productId){
     /**
      * 查詢商品列表 _ 根據商品類型作為條件
      * 查詢商品列表 _ 搜尋功能
+     * 查詢商品列表 _ 分頁 + 總比數
      * 2023/04/16
      */
     @GetMapping("/products/category")
@@ -115,7 +116,7 @@ public ResponseEntity<Product> getProduct(@PathVariable Integer productId){
         List<Product> productList= productService.getProducts(productQueryParams);
         Integer total=productService.countProduct(productQueryParams);
 
-
+        //封裝要回傳的JSON物件
         Page<Product> page=new Page<>();
         page.setLimit(limit);
         page.setOffset(offset);
